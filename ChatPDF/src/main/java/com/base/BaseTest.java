@@ -21,10 +21,9 @@ public class BaseTest extends PageObjects {
 
     public static ExtentReports extent;
     public static ExtentTest test;
-    public static String environment = TestContext.getEnvironment();
+
     public static int timeToWaitElementLoad = Integer.parseInt(TestContext.getTimeToWaitElementLoad());
     public static WebDriverWait wait;
-    public static WebDriverWait deviceWait;
     public ObjectsEngine objectsEngine;
 
     public static org.apache.logging.log4j.Logger log = LogManager.getLogger();
@@ -34,10 +33,11 @@ public class BaseTest extends PageObjects {
     public void setUp(@Optional("web") String runMode) {
 
         extent = new ExtentReports();
-        ExtentSparkReporter spark = new ExtentSparkReporter(System.getProperty("user.dir") + "/src/CoreMobileAutomation/CoreMobile_INC_Report.html");
+        ExtentSparkReporter spark = new ExtentSparkReporter(System.getProperty("user.dir") + "/src/main/reports/ChatPDF_Report.html");
         extent.attachReporter(spark);
         wait = new WebDriverWait(driver, Duration.ofSeconds(timeToWaitElementLoad));
         driver.manage().window().maximize();
+        driver.get(TestContext.getWebAppUrl());
     }
 
 

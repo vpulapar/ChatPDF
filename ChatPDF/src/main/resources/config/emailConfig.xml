@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extentreports>
+    <configuration>
+        <!-- document encoding -->
+        <!-- defaults to UTF-8 -->
+        <encoding>UTF-8</encoding>
+
+        <!-- title of the document -->
+        <documentTitle>CoreMobile</documentTitle>
+
+        <!-- report name - displayed at top-nav -->
+        <reportName>Automation Report</reportName>
+
+        <!-- timestamp format -->
+        <timeStampFormat>MMM dd, yyyy HH:mm:ss</timeStampFormat>
+        <!-- From Email address -->
+        <from>testautomation1@coremobileinc.com</from>
+
+        <!--  Email subject -->
+        <subject>Test Automation Report</subject>
+
+        <!-- Fail the build if the mail doesnt reach -->
+        <failonerror>true</failonerror>
+
+        <!-- host -->
+        <mailhost>smtp.office365.com</mailhost>
+        <!-- port of the host -->
+        <mailport>587</mailport>
+        <mailssl>true</mailssl>
+        <mailAltConfig>true</mailAltConfig>
+
+        <!-- Email Authentication(USername and Password) -->
+        <mailuser>testautomation1@coremobileinc.com</mailuser>
+        <mailpassword>Corey@2022</mailpassword>
+
+        <receivers>
+            <!-- To Email address -->
+            <receiver>venkatab@coremobileinc.com</receiver>
+        </receivers>
+        <!-- custom styles -->
+        <styles>
+            <![CDATA[
+
+            ]]>
+        </styles>
+    </configuration>
+</extentreports>

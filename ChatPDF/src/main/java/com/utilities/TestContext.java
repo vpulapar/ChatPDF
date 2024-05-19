@@ -20,12 +20,7 @@ public class TestContext {
         try {
             System.out.println("TextContext Class Load...");
             input = TestContext.class.getClassLoader().getResourceAsStream("config/environment.properties");
-            inputMobile = TestContext.class.getClassLoader().getResourceAsStream("config/mobile.properties");
             properties.load(input);
-            properties.load(inputMobile);
-
-
-
         } catch (Exception e) {
             System.out.println(e);
         } finally {
@@ -59,7 +54,7 @@ public class TestContext {
         String url = System.getProperty("Environment");
         try {
             System.out.println("TextContext ENv prop..");
-            InputStream fileTESTDATA = TestContext.class.getClassLoader().getResourceAsStream("config/testInfo.properties");
+            InputStream fileTESTDATA = TestContext.class.getClassLoader().getResourceAsStream("config/environment.properties");
             System.out.println("TextContext ENv prop Obj.."+fileTESTDATA);
             testData = new Properties();
             testData.load(fileTESTDATA);
@@ -80,5 +75,12 @@ public class TestContext {
         return properties.getProperty("TimeToWaitElementLoad");
     }
 
-
+    public static String getWebAppUrl() {
+        String Environment = System.getProperty("Environment");
+        System.out.println("Environment From Jenkins is :" + Environment);
+        if (Environment == null || Environment.equals(null)) {
+            Environment = properties.getProperty("APPURL");
+        }
+        return Environment;
+    }
 }

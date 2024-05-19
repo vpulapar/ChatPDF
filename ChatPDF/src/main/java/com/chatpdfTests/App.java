@@ -1,4 +1,4 @@
-package org.chatpdf;
+package com.chatpdfTests;
 
 /**
  * Hello world!
