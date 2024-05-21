@@ -15,6 +15,7 @@ import org.testng.Assert;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
 import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -28,6 +29,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -46,7 +48,6 @@ import java.util.function.Function;
 
 public class Utility extends BaseTest {
 
-   
 
     public static int randomNumber(int min, int max) {
         Random rand = new Random();
@@ -62,7 +63,7 @@ public class Utility extends BaseTest {
     public static void waitFor(WebElement element,
                                int timer) {
 
-       
+
         // wait for the static element to appear
         log.info("WAIT FOR Element...");
         wait.until(ExpectedConditions.refreshed(
@@ -76,7 +77,7 @@ public class Utility extends BaseTest {
     public static void waitFor(By by, int timer) {
 
         // wait for the dynamic element to appear
-        
+
         log.info("wait for Element..Start " + by);
         wait.until(ExpectedConditions.refreshed(
                 ExpectedConditions.visibilityOfElementLocated(by)));
@@ -85,10 +86,11 @@ public class Utility extends BaseTest {
 
 
     }
+
     public static void waitForNoLog(By by, int timer) {
 
         // wait for the dynamic element to appear
-        
+
         log.info("wait for Element..Start " + by);
         wait.until(ExpectedConditions.refreshed(
                 ExpectedConditions.visibilityOfElementLocated(by)));
@@ -141,10 +143,11 @@ public class Utility extends BaseTest {
         String date = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
         return date;
     }
+
     public static String getCurrentDateMonthnameandTime() {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat simpleformat = new SimpleDateFormat("E, dd MMM yyyy");
-       // simpleformat.setTimeZone(TimeZone.getTimeZone("US/Mountain"));
+        // simpleformat.setTimeZone(TimeZone.getTimeZone("US/Mountain"));
         return simpleformat.format(cal.getTime());
     }
 
@@ -152,10 +155,12 @@ public class Utility extends BaseTest {
         String date = new SimpleDateFormat("MM/dd/yyyy HH:mm").format(new Date());
         return date;
     }
+
     public static String getCurrentDateRR() {
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         return date;
     }
+
     public static String getCurrentDate1() {
         String date = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
         return date;
@@ -165,6 +170,7 @@ public class Utility extends BaseTest {
         String date = new SimpleDateFormat("MM-dd-yyyy HH:ss").format(new Date());
         return date;
     }
+
     public static void waitForJavaScriptToLoad() {
 
         wait.until(new ExpectedCondition<Boolean>() {
@@ -200,13 +206,12 @@ public class Utility extends BaseTest {
             System.out.println(e);
         }
     }
-   
+
 
     public static void getScreenShot() throws Throwable {
         test.log(Status.INFO, "Screenshot from test step: Click on base64-img", MediaEntityBuilder.createScreenCaptureFromBase64String(CaptureScreen(driver)).build());
 
     }
-
 
 
     public static void getScreenShot(String info) throws Throwable {
@@ -470,11 +475,12 @@ public class Utility extends BaseTest {
 
         }
     }
-    public static void fluentwait(By ele){
-        Wait<WebDriver> wait2= new FluentWait<WebDriver>(driver)
+
+    public static void fluentwait(By ele) {
+        Wait<WebDriver> wait2 = new FluentWait<WebDriver>(driver)
                 .withTimeout(Duration.ofSeconds(100)).pollingEvery(Duration.ofSeconds(5)).ignoring(NoSuchElementException.class);
-        WebElement th=wait2.until(new Function<WebDriver, WebElement>() {
-            public WebElement apply(WebDriver driver){
+        WebElement th = wait2.until(new Function<WebDriver, WebElement>() {
+            public WebElement apply(WebDriver driver) {
                 return driver.findElement(ele);
             }
         });
@@ -1027,10 +1033,11 @@ public class Utility extends BaseTest {
 
     public static void sendHumanKeys(WebElement element, String text) {
         Random r = new Random();
-        for(int i = 0; i < text.length(); i++) {
+        for (int i = 0; i < text.length(); i++) {
             try {
-                Thread.sleep((int)(r.nextGaussian() * 15 + 100));
-            } catch(InterruptedException e) {}
+                Thread.sleep((int) (r.nextGaussian() * 15 + 100));
+            } catch (InterruptedException e) {
+            }
             String s = new StringBuilder().append(text.charAt(i)).toString();
             element.sendKeys(s);
         }
@@ -1186,14 +1193,13 @@ public class Utility extends BaseTest {
         return selectByVisualText.getFirstSelectedOption().getText();
     }
 
-    public static void moveToElementAndClick(By locator,int time,String text) {
+    public static void moveToElementAndClick(By locator, int time, String text) {
         waitFor(locator, timeToWaitElementLoad);
         WebElement ele = driver.findElement(locator);
         Actions actions = new Actions(driver);
         actions.moveToElement(ele).click().perform();
-        test.log(Status.PASS,"clicked on "+text);
+        test.log(Status.PASS, "clicked on " + text);
     }
-
 
 
     public static void moveToElement(WebElement locator) {
@@ -1202,17 +1208,17 @@ public class Utility extends BaseTest {
         actions.moveToElement(locator).build().perform();
     }
 
-    public static void ecsClick()
-    {
+    public static void ecsClick() {
         Actions action = new Actions(driver);
         action.sendKeys(Keys.ESCAPE);
     }
+
     public static void moveToElement(By locator) {
         try {
             Actions actions = new Actions(driver);
             WebElement ele = driver.findElement(locator);
             actions.moveToElement(ele).build().perform();
-            test.log(Status.PASS,"Moved to Specified Element "+locator);
+            test.log(Status.PASS, "Moved to Specified Element " + locator);
         } catch (Exception e) {
             System.out.printf("Exception while move to Element");
         }
@@ -1377,7 +1383,6 @@ public class Utility extends BaseTest {
 	as the number of shortfall days from current date example: if user wants to select Yesterday's date then pass Days value as 1 and if user wants to select day before yesterday's date
 	then pass the Days value as 2 */
 
-   
 
     public static void Pause(WebDriver driver, int Seconds) {
         try {
@@ -1464,28 +1469,25 @@ public class Utility extends BaseTest {
 
     public static void switchToExistingTabs(int tab) {
         driver.switchTo().defaultContent();
-        if(tab==1){
-        Utility.waitForNoLog(By.xpath("//iframe[@id='extnBrowser']"),100);
-        driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@id='extnBrowser']")));//.navigate().refresh();
-        Utility.waitForAjaxFinished();
-        Utility.waitForJavaScriptToLoad();
+        if (tab == 1) {
+            Utility.waitForNoLog(By.xpath("//iframe[@id='extnBrowser']"), 100);
+            driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@id='extnBrowser']")));//.navigate().refresh();
+            Utility.waitForAjaxFinished();
+            Utility.waitForJavaScriptToLoad();
+        } else {
+            Utility.waitForNoLog(By.xpath("//iframe[contains(@src,'../app')]"), 60);
+            driver.switchTo().frame(driver.findElement(By.xpath("//iframe[contains(@src,'../app')]")));
+            ;
         }
-        else{
-        Utility.waitForNoLog(By.xpath("//iframe[contains(@src,'../app')]"),60);
-        driver.switchTo().frame(driver.findElement(By.xpath("//iframe[contains(@src,'../app')]")));
-        ;}
 
     }
 
-    public static void extBrowserRefresh()
-    {
+    public static void extBrowserRefresh() {
         try {
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("document.getElementById('extnBrowser').location.reload();");
             waitForJavaScriptToLoad();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -1512,6 +1514,7 @@ public class Utility extends BaseTest {
         }
 
     }
+
     public static void switchTonewTab(int tab) {
 
         ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
@@ -1520,22 +1523,23 @@ public class Utility extends BaseTest {
 
     public static void switchToTab(int i) {
         driver.switchTo().defaultContent();
-        if(i==1){
+        if (i == 1) {
 
-            Utility.waitForNoLog(By.xpath("//iframe[@id='extnBrowser']"),100);
+            Utility.waitForNoLog(By.xpath("//iframe[@id='extnBrowser']"), 100);
             driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@id='extnBrowser']")));
             Utility.waitForJavaScriptToLoad();
             Utility.waitForAjaxFinished();
+        } else {
+            Utility.waitForNoLog(By.xpath("//iframe[contains(@src,'../app')]"), 60);
+            driver.switchTo().frame(driver.findElement(By.xpath("//iframe[contains(@src,'../app')]")));
         }
 
-        else{
-            Utility.waitForNoLog(By.xpath("//iframe[contains(@src,'../app')]"),60);
-            driver.switchTo().frame(driver.findElement(By.xpath("//iframe[contains(@src,'../app')]")));}
-
     }
+
     public static void switchTodefaultContent() {
         driver.switchTo().defaultContent();
     }
+
     public static void jsClick(WebElement element) {
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript("arguments[0].click();", element);
@@ -1549,7 +1553,7 @@ public class Utility extends BaseTest {
     }
 
     public static void jsByType(By element, String value) {
-        WebElement ele=driver.findElement(element);
+        WebElement ele = driver.findElement(element);
         // Use JavaScript Executor to type into the input field
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
         jsExecutor.executeScript("arguments[0].value = arguments[1];", ele, value);
@@ -1562,7 +1566,7 @@ public class Utility extends BaseTest {
     }
 
     public static void jsByClick(By element) {
-        WebElement ele=driver.findElement(element);
+        WebElement ele = driver.findElement(element);
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript("arguments[0].click();", ele);
     }
@@ -1664,8 +1668,6 @@ public class Utility extends BaseTest {
             test.fail(e);
         }
     }
-
-
 
 
     public static String getToken() {
@@ -1772,25 +1774,21 @@ public class Utility extends BaseTest {
     }
 
 
-
-    public static void clearCHROMEBrowserCache()
-    {
+    public static void clearCHROMEBrowserCache() {
         try {
             driver.manage().deleteAllCookies();
             driver.get("chrome://settings/clearBrowserData");
             Thread.sleep(2000);
             //Utility.getScreenShot("Browser Cache After");
-            JavascriptExecutor js=(JavascriptExecutor)driver;
+            JavascriptExecutor js = (JavascriptExecutor) driver;
             //get clear cache button
             WebElement clearBtn = (WebElement) js.executeScript("return document.querySelector(\"body > settings-ui\").shadowRoot.querySelector(\"#main\").shadowRoot.querySelector(\"settings-basic-page\").shadowRoot.querySelector(\"#basicPage > settings-section:nth-child(9) > settings-privacy-page\").shadowRoot.querySelector(\"settings-clear-browsing-data-dialog\").shadowRoot.querySelector(\"#clearBrowsingDataConfirm\")");
             //Click
             clearBtn.click();
             Thread.sleep(1000);
-            test.log(Status.PASS,"Browser Cache cleared");
+            test.log(Status.PASS, "Browser Cache cleared");
             //Utility.getScreenShot("Browser Cache After");
-        }
-        catch (Throwable e)
-        {
+        } catch (Throwable e) {
             System.out.println("exception cache clear ..");
 
         }
@@ -1801,18 +1799,18 @@ public class Utility extends BaseTest {
         JavascriptExecutor js = ((JavascriptExecutor) driver);
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
-    public static void clearChromeCache()
-    {
+
+    public static void clearChromeCache() {
         /*DevTools devTools=driver.getDevTools();
         devTools.createSession();
         devTools.send(Network.clearBrowserCookies());
         devTools.send(Network.clearBrowserCache());*/
     }
 
-    public static void browserZoom(String value)
-    {
-        ((JavascriptExecutor)driver).executeScript("document.body.style.zoom='"+value+"%'");
+    public static void browserZoom(String value) {
+        ((JavascriptExecutor) driver).executeScript("document.body.style.zoom='" + value + "%'");
     }
+
     public static void closeNewOpenedTabs() {
         Set<String> windowHandles = driver.getWindowHandles();
         if (windowHandles.size() > 1) {
@@ -1825,32 +1823,34 @@ public class Utility extends BaseTest {
             driver.switchTo().window(handlesList.get(0));
         }
     }
-    public static void ExplicitWait(By element)
-    {
+
+    public static void ExplicitWait(By element) {
         // WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(WaitDurationInSeconds));
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
-    public static void closeNewOpenedTab()
-    {
-       Set<String> s1= driver.getWindowHandles();
-       if (s1.size()>1){
-           for(int i=s1.size()-1; i>=1; i--){
+
+    public static void closeNewOpenedTab() {
+        Set<String> s1 = driver.getWindowHandles();
+        if (s1.size() > 1) {
+            for (int i = s1.size() - 1; i >= 1; i--) {
 //               Utility.switchToTab(i);
-               driver.close();
-           }
+                driver.close();
+            }
 //           Utility.switchToTab(0);
-       }
+        }
 
     }
-    public static int getElementCount(By locator,int time){
+
+    public static int getElementCount(By locator, int time) {
         waitFor(locator, time);
-        List<WebElement> eleCount =driver.findElements(locator);
+        List<WebElement> eleCount = driver.findElements(locator);
         return eleCount.size();
     }
+
     public static void scrollIntoElementView(By element) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        waitFor(element,timeToWaitElementLoad);
-        WebElement ele=driver.findElement(element);
+        waitFor(element, timeToWaitElementLoad);
+        WebElement ele = driver.findElement(element);
         js.executeScript("arguments[0].scrollIntoView();", ele);
         try {
             Thread.sleep(2000);
@@ -1860,56 +1860,89 @@ public class Utility extends BaseTest {
     }
 
 
+    public static void typeAndEnter(String filePath) {
+        // Create a Robot instance to handle native OS interactions
+        Robot robot = null;
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
 
-    public static int getfirsttwodigit(int n){
+        // Delay to ensure the file upload dialog is fully opened
+        robot.delay(2000);
+
+        // File path to be uploaded
+        StringSelection fileSelection = new StringSelection(filePath);
+
+        // Copy file path to clipboard
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(fileSelection, null);
+
+        // Cmd + V to paste the file path into the file name field and press Enter
+        robot.keyPress(KeyEvent.VK_META);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_META);
+
+        // Wait for a few seconds before pressing Enter
+        robot.delay(1000);
+
+        // Press Enter to confirm file upload
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
+    }
+
+    public static int getfirsttwodigit(int n) {
 
         String str = Integer.toString(n);
-        str=str.substring(0,2);
-        int i=Integer.parseInt(str);
+        str = str.substring(0, 2);
+        int i = Integer.parseInt(str);
         return i;
     }
-    public static double calculateAverage(double[]average){
-        double sum=0;
-        for(int i=0;i<average.length;i++){
-            sum=sum+average[i];
+
+    public static double calculateAverage(double[] average) {
+        double sum = 0;
+        for (int i = 0; i < average.length; i++) {
+            sum = sum + average[i];
         }
-        int d=average.length;
-        double avg=sum/d;
-        return Math.round(avg*100)/100.0;
+        int d = average.length;
+        double avg = sum / d;
+        return Math.round(avg * 100) / 100.0;
     }
-    public  static double calculateMedian(double bc[]){
-        double k=0;
-        double []dg=bc;
 
-        int l= dg.length;
-        if(l>1){
+    public static double calculateMedian(double bc[]) {
+        double k = 0;
+        double[] dg = bc;
+
+        int l = dg.length;
+        if (l > 1) {
             double temp;
-            for(int i=0; i< l; i++){
+            for (int i = 0; i < l; i++) {
 
-                for(int j=i+1; j<l;j++){
-                    if(dg[i]>dg[j]){
-                        temp=dg[i];
-                        dg[i]=dg[j];
-                        dg[j]=temp;
+                for (int j = i + 1; j < l; j++) {
+                    if (dg[i] > dg[j]) {
+                        temp = dg[i];
+                        dg[i] = dg[j];
+                        dg[j] = temp;
                     }
                 }
             }
-            if(l==2){
-                double p=dg[0]+dg[1];
-                k=p/2;
-            } else if (l>2) {
-                if(l%2==0){
-                    int m=l/2;
-                    k=(dg[m-1]+dg[m])/2;
+            if (l == 2) {
+                double p = dg[0] + dg[1];
+                k = p / 2;
+            } else if (l > 2) {
+                if (l % 2 == 0) {
+                    int m = l / 2;
+                    k = (dg[m - 1] + dg[m]) / 2;
+                } else {
+                    int m = (l - 1) / 2;
+                    k = dg[m];
                 }
-                else{
-                    int m=(l-1)/2;
-                    k=dg[m];
-                }
-            }}else {
-            k=dg[0];
+            }
+        } else {
+            k = dg[0];
         }
-        return Math.round(k*100)/100.0;
+        return Math.round(k * 100) / 100.0;
     }
     //Copyright © 2023–2024 CoreMobile, Inc.
 }

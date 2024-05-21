@@ -33,11 +33,12 @@ public class BaseTest extends PageObjects {
     public void setUp(@Optional("web") String runMode) {
 
         extent = new ExtentReports();
-        ExtentSparkReporter spark = new ExtentSparkReporter(System.getProperty("user.dir") + "/src/main/reports/ChatPDF_Report.html");
+        ExtentSparkReporter spark = new ExtentSparkReporter(System.getProperty("user.dir") + "/src/main/java/reports/ChatPDF_Report.html");
         extent.attachReporter(spark);
         wait = new WebDriverWait(driver, Duration.ofSeconds(timeToWaitElementLoad));
         driver.manage().window().maximize();
         driver.get(TestContext.getWebAppUrl());
+        objectsEngine=new ObjectsEngine();
     }
 
 

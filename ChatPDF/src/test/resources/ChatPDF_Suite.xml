@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="methods" configfailurepolicy="continue">
+
+    <listeners>
+        <listener class-name="com.base.CoreTestListener"/>
+    </listeners>
+    <test name="Chat PDF Test Suite" preserve-order="true" parallel="false">
+        <parameter name="RunMode" value="Web"/>
+        <classes>
+
+            <class name="com.chatpdfTests.ChatPDFTestCases">
+            </class>
+
+
+        </classes>
+    </test> <!-- Test -->
+</suite> <!-- Suite -->
